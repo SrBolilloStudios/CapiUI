@@ -1,0 +1,2 @@
+# CapiUI
+Sistema POS local
