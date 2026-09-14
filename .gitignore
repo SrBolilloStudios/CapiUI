@@ -1,0 +1,9 @@
+# Go (openpos-backend)
+openpos-backend/bin/
+openpos-backend/*.exe
+openpos-backend/*.test
+openpos-backend/*.out
+
+# General
+.DS_Store
+*.log
