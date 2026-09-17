@@ -3,7 +3,6 @@ import { computed, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { en, es } from '@nuxt/ui/locale'
 import { useSettingsStore } from '@/stores/settings'
-
 const settings = useSettingsStore()
 const { locale } = useI18n()
 

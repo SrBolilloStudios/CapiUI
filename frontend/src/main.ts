@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import ui from '@nuxt/ui/vue-plugin'
 
 import App from './App.vue'
 import router from './router'
@@ -16,5 +17,6 @@ const app = createApp(App)
 app.use(pinia)
 app.use(router)
 app.use(i18n)
+app.use(ui)
 
 app.mount('#app')
