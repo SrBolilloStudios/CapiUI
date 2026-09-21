@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/internal/query/media_query.sql" value="f2e291e0-8ed3-4ca7-88f3-537169177932" />
+    <file url="file://$PROJECT_DIR$/internal/query/product.sql" value="c88a2bd7-9569-4054-a166-d861a7c5b595" />
+  </component>
+</project>

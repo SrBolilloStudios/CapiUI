@@ -1,31 +1,37 @@
 package main
 
 import (
-	"fmt"
+	"database/sql"
 	"log"
 	"net/http"
 
 	"capiui_pos/internal/api"
+	"capiui_pos/internal/query"
+	"capiui_pos/internal/store"
+
+	_ "modernc.org/sqlite"
 )
 
 func main() {
-	fmt.Print("Servidor inicializado")
-	mux := http.NewServeMux()
-	mux.HandleFunc("/api/test/products", api.ProductsHandler)
-	log.Fatal(http.ListenAndServe(":8080", corsMiddleware(mux)))
+	if err := query.Load(); err != nil {
+		log.Fatalf("failed to load queries: %v", err)
+	}
 
-}
-
-func corsMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
-		if r.Method == http.MethodOptions {
-			w.WriteHeader(http.StatusNoContent)
-			return
+	db, err := sql.Open("sqlite", "./products.db")
+	if err != nil {
+		log.Fatalf("failed to open database: %v", err)
+	}
+	defer func() {
+		if err := db.Close(); err != nil {
+			log.Printf("failed to close database: %v", err)
 		}
-		next.ServeHTTP(w, r)
-	})
+	}()
+
+	handler := api.NewHandler(
+		api.NewProductHandler(store.NewProductStore(db)),
+		api.NewCategoryHandler(store.NewCategoryStore(db)),
+	)
+
+	log.Println("Server listening on :8080")
+	log.Fatal(http.ListenAndServe(":8080", handler))
 }

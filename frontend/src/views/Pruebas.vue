@@ -12,7 +12,7 @@ const status = ref<string | null>("")
 const isLoading = ref<boolean | null>(true)
 async function fetchProducts() {
     try {
-        const url = "http://localhost:8080/api/test/products"
+        const url = "http://localhost:8080/api/products"
         const request = await fetch(url)
         if (!request.ok) {
             status.value = "Error de peticion"
