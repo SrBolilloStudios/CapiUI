@@ -30,7 +30,7 @@ onMounted(() => fetchProducts())
 </script>
 <template>
     <div class="m-8" flex>
-        <UTable :data="data" class="flex-1"/>
+        <UTable :data="data ?? undefined" class="flex-1"/>
         <UButton>Button</UButton>
     </div>
 </template>
